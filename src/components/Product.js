@@ -1,15 +1,34 @@
 import Image from 'next/image'
 import {useState} from 'react'
+import {useDispatch} from 'react-redux'
 import {StarIcon} from '@heroicons/react/solid'
 import Currency from 'react-currency-formatter'
+import {addToCart} from '../slices/cartSlice'
 
 function Product({id, title, price, description, category, image}) {
+
+    const dispatch = useDispatch()
 
     const [rating] = useState(
         Math.floor(Math.random() *(5-1 +1)) + 1
     );
 
     const [hasPrime] = useState(Math.random() < 0.5)
+
+    const addItemToCart = () =>{
+        const product = {
+            id, 
+            title, 
+            price,
+            rating,
+            description, 
+            category, 
+            image,
+            hasPrime
+        };
+
+        dispatch(addToCart(product));
+    }
 
     return (
         <div className=" flex flex-col m-5 bg-white z-30 p-10 relative" >
@@ -34,7 +53,7 @@ function Product({id, title, price, description, category, image}) {
                     <p className='text-xs text-gray-500'>FREE Next-day Delivery</p>
                 </div>
             )}
-            <button className='button'>Add To Basket</button>
+            <button onClick={addItemToCart} className='button'>Add To Cart</button>
         </div>
     )
 }
