@@ -9,7 +9,7 @@ const app = !admin.apps.length ? admin.initializeApp({
 
 }) : admin.app()
 
-
+console.log('running')
 // Establish connectioon to Stripe
 
 const stripe = require('stripe')(process.env.STRIPE_PRIVATE_KEY);
@@ -40,6 +40,7 @@ export default async (req, res) => {
         const sig = req.headers['stripe-signature'];
    
         let event;
+        console.log(event)
         // Verify that the event posted came from stripe
         try {
             event = stripe.webhooks.constructEvent(payload, sig, endpointSecret);
@@ -52,10 +53,9 @@ export default async (req, res) => {
             const session = event.data.object;
             console.log('works')
             // Fulfill the order
-            fullfillOrder(session)
-            // return fullfillOrder(session)
-            //         .then(()=> res.status(200))
-            //         .catch((err) => res.status(400).send(`Webhook Error: ${err.message}`));
+            return fullfillOrder(session)
+                    .then(()=> res.status(200))
+                    .catch((err) => res.status(400).send(`Webhook Error: ${err.message}`));
         }
     }
 }
