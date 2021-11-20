@@ -1,4 +1,5 @@
 import Header from './../components/Header';
+import Head from 'next/head'
 import { getSession, useSession } from 'next-auth/client';
 import {getDocs,collection} from 'firebase/firestore/lite'
 import db from '../../firebase';
@@ -7,9 +8,12 @@ import OrderItem from './../components/OrderItem';
 
 function Orders({orders}) {
     const [session] = useSession();
-    console.log(orders)
     return (
         <div>
+            <Head>
+                <title>Amazon - Orders</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <Header />
             <main className='max-w-screen-lg mx-auto p-10'>
                 <h1 className="text-3xl border-b mb-2 pb-1 border-yellow-400">Your orders</h1>

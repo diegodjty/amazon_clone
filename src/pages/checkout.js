@@ -1,4 +1,5 @@
 import Image from 'next/image'
+import Head from 'next/head'
 import Header from './../components/Header';
 import { useSelector } from 'react-redux';
 import { selectItems, selectTotal } from '../slices/cartSlice';
@@ -39,6 +40,10 @@ function checkout() {
     
     return (
         <div className='bg-gray-100'>
+            <Head>
+                <title>Amazon - Checkout</title>
+                <link rel="icon" href="/favicon.ico" />
+            </Head>
             <Header />
             <main className='lg:flex max-w-screen-2xl mx-auto'>
                  <div className='flex-grow m-5 shadow-sm'>
